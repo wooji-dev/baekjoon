@@ -3,7 +3,6 @@ from itertools import combinations
 
 # 입력 받기
 N = int(sys.stdin.readline())
-# 인덱스를 1부터 맞추기보다 0부터 사용하는 것이 파이썬에서 더 간결합니다.
 adj = [list(map(int, sys.stdin.readline().split())) for _ in range(N)]
 
 members = list(range(N))
