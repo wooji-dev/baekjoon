@@ -1,5 +1,4 @@
 import sys
-import itertools
 
 test = int(sys.stdin.readline())
 
@@ -28,4 +27,3 @@ def hire(people):
 for _ in range(test):
     people = int(sys.stdin.readline())
     print(hire(people))
-
