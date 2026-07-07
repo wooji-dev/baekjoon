@@ -1,13 +1,10 @@
 def solution(nums):
     answer = 0
+    size = len(nums) // 2
+    nums = set(nums)
     
-    size = len(nums) / 2
-    
-    nums  = set(nums)
-    
-    if size > len(nums):
-        answer = len(nums)
+    if len(nums) >= size:
+        answer = size
     else:
-        answer = int(size)
-    
+        answer = len(nums)
     return answer
