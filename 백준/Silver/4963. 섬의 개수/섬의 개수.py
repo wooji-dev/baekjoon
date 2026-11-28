@@ -1,52 +1,42 @@
+# 입력부터 출력까지 직접 작성해 보세요.
 import sys
-from collections import deque
+sys.stdin.readline      
 
-def solve():
-    input_data = sys.stdin.read().split()
-
-    idx = 0
-    while idx < len(input_data):
-        w = int(input_data[idx])
-        h = int(input_data[idx+1])
-        idx += 2
-        
-        if w == 0 and h == 0:
-            break
-        
-        grid = []
-        for _ in range(h):
-            grid.append(list(map(int, input_data[idx : idx + w])))
-            idx += w
-            
-        island_count = 0
-        visited = [[False] * w for _ in range(h)]
-        
-        for r in range(h):
-            for c in range(w):
-                if grid[r][c] == 1 and not visited[r][c]:
-                    island_count += 1
-                    bfs(r, c, h, w, grid, visited)
-        
-        print(island_count)
-
-def bfs(r, c, h, w, grid, visited):
-    dr = [-1, 1, 0, 0, -1, -1, 1, 1]
-    dc = [0, 0, -1, 1, -1, 1, -1, 1]
+while True:
+    # width, height 
+    m, n = map(int, input().split())
     
-    queue = deque([(r, c)])
-    visited[r][c] = True
+    # if 0 0, break loop
+    if m == 0 and n == 0 :
+        break
     
-    while queue:
-        curr_r, curr_c = queue.popleft()
+    def dfs(x, y):
+        dir_x = [0, 0, -1, 1, -1, -1, 1, 1]
+        dir_y = [1, -1, 0, 0, 1, -1, 1, -1]
         
-        for i in range(8):
-            nr = curr_r + dr[i]
-            nc = curr_c + dc[i]
+        stack = [(x, y)]
+        visited[y][x] = True
+        
+        while stack:
+            x, y = stack.pop()
             
-            if 0 <= nr < h and 0 <= nc < w:
-                if grid[nr][nc] == 1 and not visited[nr][nc]:
-                    visited[nr][nc] = True
-                    queue.append((nr, nc))
-
-
-solve()
+            for i in range(8):
+                dx = x + dir_x[i]
+                dy = y + dir_y[i]
+                
+                if 0 <= dx < m and 0 <= dy < n :
+                    if not visited[dy][dx] and map_[dy][dx] == 1:
+                        visited[dy][dx] = True
+                        stack.append((dx, dy))
+    
+    map_ = [list(map(int, input().split())) for _ in range(n)]
+    visited = [[False] * m for _ in range(n)]
+    answer = 0
+    
+    for i in range(n):
+        for j in range(m):            
+            if map_[i][j] == 1 and not visited[i][j]:
+                answer += 1
+                dfs(j, i)  
+                          
+    print(answer)           
